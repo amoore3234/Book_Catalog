@@ -44,6 +44,8 @@ class DetailPage extends Database{
             
             echo "</table>";
          
+        } else {
+            header("Location: index.php");
         }
        
     }
@@ -60,9 +62,8 @@ class DetailPage extends Database{
     }
     
     public function getImage($detailPage) {
-        
-            
-            return '<img src="images/'.$detailPage['isbn13'].'.jpg" />';
+       
+        return '<img src="images/'.$detailPage['isbn13'].'.jpg" />';
              
     }
     
@@ -73,18 +74,6 @@ class DetailPage extends Database{
         foreach($courseTitles as $courseTitle) {
             if ($detailPage['isbn13'] == $courseTitle['book'] && $courseTitle['course'] == $courseTitle['courseID']) {
             return $courseTitle['courseTitle'];
-            }
-        }
-    }
-    
-    public function getPrice($detailPage) {
-        
-        $query = 'SELECT * FROM coursebook, course, book';
-        $prices = $this->connect()->query($query);
-        
-        foreach($prices as $price) {
-            if ($detailPage['courseID'] == $price['course'] && $price['book'] == $price['isbn13']) {
-            return $price['price'];
             }
         }
     }
